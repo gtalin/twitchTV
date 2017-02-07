@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+}
+h1 {
+  background: deepSkyBlue;
+  color: white;
+  line-height: 50px;
+  padding: 10px;
+}
+.parent {
+  border: 5px solid lightcoral;
+  margin: 0px;
+  padding: 0px;/*remove left space for li elements*/
+  font-style: italic;
+  
+  display: flex;
+  flex-direction: column;
+}
+.item {
+  background: deepSkyBlue;
+  margin: 5px;
+  color: white;
+  text-align: center;
+  list-style-type: none;
+  line-height: 50px;
+  /*font-weight: bold;*/
+  display: flex;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+/*p {
+  font-style: italic;
+}*/
+img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin: auto;
+}
+.logo {
+  width: 20%
+}
+.name {
+  width: 60%
+}
+.status {
+  width: 20%
+}
