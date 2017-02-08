@@ -1,44 +1,14 @@
-.heading{
-  background: deepSkyBlue;
-  height: 100px;
-  width: 100%;
+.container {
   display: flex;
-  color: white;
-  font-weight: bold;
-}
-ul {
-  list-style-type: none;
-  color: white;
-  font-weight: bold;
-}
-.radioButtons {
-  display: flex;
-  flex-direction: column;
-}
-.radioButtons labels {
-  display: flex;
-}
-input {
-  margin: 5px;
-}
-h1 {
-  /*background: salmon;*/
-  line-height: 50px;
-  padding: 10px;
-  width: 75%;
-}
-/*heading{
-  background: deepSkyBlue;
-  
 }
 h1 {
   background: deepSkyBlue;
   color: white;
   line-height: 50px;
   padding: 10px;
-}*/
+}
 .parent {
-  border: 5px solid salmon;
+  border: 5px solid lightcoral;
   margin: 0px;
   padding: 0px;/*remove left space for li elements*/
   font-style: italic;

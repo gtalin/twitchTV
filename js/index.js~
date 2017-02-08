@@ -75,7 +75,7 @@ function statusData (data) {
   var status = "Online";  
   if (data["stream"] == null)
     status = "Offline";
-  console.log("status is", status)
+  cnsole.log("status is", status)
   return status;
 }
 
