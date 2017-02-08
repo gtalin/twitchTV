@@ -8,8 +8,8 @@ baseUrl = "https://wind-bow.gomix.me/twitch-api/users/";
 var url;
 for (var i=0;i<userNames.length;i++) {
   url = baseUrl + userNames[i] + "?";
-  calls.push(
-    $.getJSON(url, processData
+  calls.push(//passing key to outer function becuase else problem with case of key with name and user_name for received data
+    $.getJSON(url, (function(key) {return function(data) {data2Display[key] = processData(data)}})(userNames[i])
              )
     )
   calls.push(
@@ -33,13 +33,14 @@ $.when.apply($,calls).then(function(){
 
 function processData(data) {
   console.log("in processData", data["name"]);
-  var key = data["name"];
+  //var key = data["name"];
+  var key = data["display_name"];//data["name"] some problem with case of name. It's affecting the keys of data2Display and status
   var baseLink = "https://www.twitch.tv/";
   var name = data["display_name"];
   var logo = data["logo"];
   var link = baseLink + data["name"];
   
-  data2Display[key]={name: name, logo: logo, link: link};
+  return {name: name, logo: logo, link: link};
   //var status = 
   
   /*var parent = document.getElementById("parent");
@@ -72,9 +73,10 @@ function statusData (data) {
   //console.log(statusUrl);
   //we could've used a flag and just used one object to keep all data
   console.log("In status fn");
-  var status = "Online";  
+  var status;  
   if (data["stream"] == null)
     status = "Offline";
+  else status = data["stream"]["game"];//+data["stream"]["status"];
   console.log("status is", status)
   return status;
 }
