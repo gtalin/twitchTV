@@ -30,6 +30,62 @@ $.when.apply($,calls).then(function(){
   displayData(data2Display,statusVal);
 });
 
+var rad = document.getElementById("radioButtons");
+rad.addEventListener("click", displaySelection);
+
+function displaySelection(event) {
+  //data2Display and statusVal global variables
+  //filter data based on selection: data2Display and statusVal
+  //remove old ul
+  //reconstruct the table with filtered data
+  //Instead of removing and reconstructing we could just hide the items not in selection by toggle
+  var filterBy, filteredStatus={}, filteredDisplay={};
+  if (event.target.tagName === "INPUT"){
+    filterBy = event.target.value;
+    console.log(filterBy);
+      switch (filterBy) {
+        case 'All':
+          filteredStatus = JSON.parse(JSON.stringify(statusVal));
+          filteredDisplay = JSON.parse(JSON.stringify(data2Display));
+          reDisplay(filteredDisplay, filteredStatus);
+          break;
+        case 'Online':
+          var filteredStatus={}, filteredDisplay={}
+          console.log("Online only");
+          for (var key in statusVal) {
+            if (statusVal[key]!=="Offline"){
+              filteredStatus[key] = statusVal[key];
+              filteredDisplay[key] = data2Display[key];
+            }  
+          }
+          reDisplay(filteredDisplay, filteredStatus);
+          break;
+        case 'Offline':
+          var filteredStatus={}, filteredDisplay={}
+          console.log("Offline only");
+          for (var key in statusVal) {
+            if (statusVal[key]=="Offline"){
+              filteredStatus[key] = statusVal[key];
+              filteredDisplay[key] = data2Display[key];
+            } 
+          }
+          reDisplay(filteredDisplay, filteredStatus);
+          break;
+                      }
+    }
+  function reDisplay(data, status) {
+    //first remove ul if attached
+    //displayData(filteredDisplay, filteredStatus);
+    var list = document.getElementById("list");
+    var container = document.getElementById("container");
+    if (list!==null) {
+      //remove that node and display elements again
+      container.removeChild(list);
+      displayData(data, status);
+    }
+  }
+  }
+ 
 
 function processData(data) {
   console.log("in processData", data["name"]);
@@ -41,31 +97,7 @@ function processData(data) {
   var link = baseLink + data["name"];
   
   return {name: name, logo: logo, link: link};
-  //var status = 
   
-  /*var parent = document.getElementById("parent");
-  //Create row
-  var item = document.createElement("li");
-  item.className = "item";
-  //Create elements for rows
-  //var pLogo = document.createElement("p");
-   //pLogo.className = "logo";
-  var domLogo = document.createElement("img");
-  domLogo.alt = "Logo";
-  domLogo.src = logo;
-  //pLogo.append(domLogo);
- 
-  var pName = document.createElement("p");
-  var domName = document.createElement("a");
-  domName.text = name;
-  domName.href = link;
-  pName.className = "name";
-  pName.append(domName);
-  
-  //Add elements
-  item.append(domLogo);
-  item.append(pName);
-  */
 }
 
 function statusData (data) {
@@ -88,7 +120,8 @@ function displayData(data,status,selection) {
   //Display elements
   var container = document.getElementById("container");
   var parent = document.createElement("ul");
-  parent.className = "parent"
+  parent.className = "parent";
+  parent.id = "list";
   for (var key in data) {
     console.log("key", key);  
     console.log("Elusive", data[key], status[key]);
